@@ -3,77 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Enhancements -->
+    <meta name="description" content="David Stewart, Senior Software Engineer at Stewart FutureTech Consulting, specializing in AI, simulation, and software development.">
+    <meta name="keywords" content="software engineer, AI training, simulation, C++, Unreal Engine, Orlando, Full Sail">
+    <meta name="author" content="David Stewart">
+    <meta property="og:title" content="Stewart FutureTech Consulting">
+    <meta property="og:description" content="Portfolio of David Stewart, a Senior Software Engineer with expertise in AI, simulation, and software development.">
+    <meta property="og:image" content="https://yourwebsite.com/path-to-image.jpg"> <!-- Update with actual image URL -->
+    <meta property="og:url" content="https://yourwebsite.com"> <!-- Update with actual website URL -->
+    <meta property="og:type" content="website">
     <title>Stewart FutureTech Consulting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
-            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            color: #e0e0e0;
+            background-color: black;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Smooth scrolling for mobile */
+        }
+
+        .container {
             display: flex;
-            background-color: black; /* Ensure overall background is black */
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
         }
 
         .left {
-            width: 50%;
+            width: 25%;
             height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
             overflow: hidden;
-            background-color: black; /* Set background to black */
+            background-color: black;
+            z-index: 1;
         }
 
-        #bg-video {
+        .left video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
         .right {
-            width: 50%;
-            margin-left: 50%;
+            width: 75%;
+            margin-left: 25%;
             overflow-y: auto;
-            background: #000; /* Changed to solid black to avoid grey appearance */
+            background: transparent;
             padding: 40px;
             box-sizing: border-box;
             min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        .right video {
+            position: fixed;
+            top: 0;
+            left: 25%;
+            width: 75%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .right::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 25%;
+            width: 75%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+            pointer-events: none;
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 4em;
             margin-bottom: 10px;
             font-family: 'Orbitron', sans-serif;
-            color: #00ff00; /* Neon green for section headers */
+            color: #4a90e2;
+            -webkit-text-stroke: 1px #000000;
+            text-stroke: 1px #000000;
             text-align: center;
+            text-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
         }
 
         h2 {
-            font-size: 2em;
+            font-size: 3em;
             margin-bottom: 20px;
-            color: #00ff00; /* Neon green for section headers */
+            color: #4a90e2;
+            -webkit-text-stroke: 0.5px #000000;
+            text-stroke: 0.5px #000000;
             text-align: center;
+            text-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
         }
 
         h3 {
-            font-size: 1.5em;
+            font-size: 2.5em;
             margin-top: 30px;
             margin-bottom: 10px;
-            color: #00ff00; /* Neon green for section headers */
+            color: #4a90e2;
+            -webkit-text-stroke: 0.5px #000000;
+            text-stroke: 0.5px #000000;
+            text-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
         }
 
         p {
-            font-size: 1.2em;
+            font-size: 2.2em;
             line-height: 1.5;
             margin-bottom: 20px;
             text-align: left;
+            -webkit-text-stroke: 0.2px #000000;
+            text-stroke: 0.2px #000000;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         ul {
             text-align: left;
             margin-bottom: 20px;
             padding-left: 20px;
+        }
+
+        ul li {
+            -webkit-text-stroke: 0.2px #000000;
+            text-stroke: 0.2px #000000;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .contact {
@@ -84,16 +144,23 @@
 
         .contact li {
             margin: 10px 0;
-            font-size: 1.1em;
+            font-size: 2.1em;
+            -webkit-text-stroke: 0.2px #000000;
+            text-stroke: 0.2px #000000;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .contact a, a {
-            color: #00bfff;
+            color: #50e3c2;
+            -webkit-text-stroke: 0.2px #000000;
+            text-stroke: 0.2px #000000;
             text-decoration: none;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .contact a:hover, a:hover {
             text-decoration: underline;
+            color: #3bbca0;
         }
 
         .skills {
@@ -110,115 +177,203 @@
         .skills-column ul {
             list-style-type: disc;
         }
+
+        .skills-column strong {
+            color: #4a90e2;
+            -webkit-text-stroke: 0.5px #000000;
+            text-stroke: 0.5px #000000;
+            text-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+            }
+
+            .left {
+                width: 100%;
+                height: 50vh;
+                position: relative;
+                scroll-snap-align: start;
+            }
+
+            .right {
+                width: 100%;
+                margin-left: 0;
+                min-height: 100vh;
+                scroll-snap-align: start;
+                padding: 20px; /* Reduced padding for mobile */
+            }
+
+            .right video {
+                left: 0;
+                width: 100%;
+            }
+
+            .right::before {
+                left: 0;
+                width: 100%;
+            }
+
+            .left video {
+                display: none; /* Hide left video on mobile */
+            }
+
+            /* Adjusted font sizes for mobile readability */
+            h1 {
+                font-size: 2.5em; /* Reduced from 4em */
+            }
+
+            h2 {
+                font-size: 2em; /* Reduced from 3em */
+            }
+
+            h3 {
+                font-size: 1.8em; /* Reduced from 2.5em */
+            }
+
+            p {
+                font-size: 1.4em; /* Reduced from 2.2em */
+            }
+
+            .contact li {
+                font-size: 1em; /* Slightly smaller for mobile */
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="left">
-        <video autoplay muted loop id="bg-video">
-            <source src="indexBG.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <div class="right">
-        <h1>FutureTech Consulting</h1>
-        <h2>David Stewart</h2>
-        
-        <ul class="contact">
-            <li>Location: Orlando, FL</li>
-            <li>Phone: (816) 863-2185</li>
-            <li>Email: <a href="mailto:Dstewart3919@gmail.com">Dstewart3919@gmail.com</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/david-stewart-71963951" target="_blank">LinkedIn Profile</a></li>
-            <li>YouTube Final Project: <a href="https://youtu.be/I14bZ0YlBnE" target="_blank">Watch Here</a></li>
-        </ul>
-
-        <h3>Objective</h3>
-        <p>
-            I am a highly articulate individual with extensive experience in programming and software development. As a self-starter, I excel both in independent work and collaborative environments. My ability to lead and engage with clients, ensuring their needs are met, stems from years of hands-on experience and a strong commitment to meeting project deadlines. I take initiative, continuously seek opportunities for growth, and thrive on learning from others. I am eager to work towards a shared goal with your team, contributing to its success and furthering our collective objectives.
-        </p>
-
-        <h3>Education</h3>
-        <ul>
-            <li>BS Computer Science | Full Sail University, Winter Park, FL (2010 – 2013)<br>Link to Final Project: <a href="https://youtu.be/I14bZ0YlBnE" target="_blank">Watch Here</a></li>
-            <li>AS Computer Science | MCC-Penn Valley College, Kansas City, Missouri (2008 – 2010)</li>
-        </ul>
-
-        <h3>Experience</h3>
-        <p><strong>Senior Software Engineer | Freelance</strong><br>Current Projects: Alignerr, Outlier, Deepseek, Upwork<br>I am currently training AI models on best coding practices by improving prompt responses using several languages c++, Javascript, python, react etc. How do you think these AI models are so good experts build datasets? Side projects for several NDA clients through Upwork. Working for myself atm and I have enough bandwidth to add on a full-time position with a team that needs a top of the line engineer. I can then shift my work to the weekends and late hours &/or cut some.</p>
-        <p><strong>Senior Software Engineer | Lockheed Martin, Orlando, FL (MAR 2022 – 2025)</strong><br>Led backend development for mission-critical F-35 training tools, optimizing instructor workflows and enhancing system efficiency. Spearheaded process improvements that streamlined development cycles and increased software reliability. Mentored junior engineers, providing guidance on best practices and modern development techniques to strengthen the team’s technical capabilities.</p>
-        <p><strong>Senior Software Engineer | Kratos Defense & Security Solutions, Orlando, FL (NOV 2017 – JAN 2022)</strong><br>Designed and implemented training solutions for multiple branches of the military, tying together physical trainers using a combination of C++, C#, Unreal Engine, Unity, and web development technologies such as Rust, HTML, JSON, and TypeScript. Collaborated on systems where multiple machines interfaced via networking solutions similar to multiplayer video games, utilizing APIs, shared memory, and networking protocols to achieve High-Speed Interconnect (HSI). Developed and integrated solutions for systems that included dome projectors, each requiring multiple machines to render individual Out-The-Window (OTW) channels. Leveraged both third-party and in-house software/hardware tools to deliver reliable and innovative training platforms. Ensured seamless communication and functionality across devices and systems through meticulous debugging and system integration.</p>
-        <p><strong>Software Engineer | Diamond Visionics (OCT 2013 – OCT 2017)</strong><br>Collaborated with a dynamic team to design and implement innovative features and tools for an Out-The-Window (OTW) solution for flight simulators. Responsibilities included identifying and resolving bugs through rigorous quality assurance processes and unit testing. Leveraged expertise in C++ and OpenGL to develop and enhance an in-house database design tool. Additionally, crafted numerous shaders from scratch and optimized existing ones to achieve superior visual fidelity and performance. Worked closely with senior engineers to ensure alignment with project requirements and deliverables, consistently meeting or exceeding expectations.</p>
-
-        <h3>Major Programs</h3>
-        <ul>
-            <li>MCAT | Reconfigurable 3 aircraft, 30 Projectors/Channels, Aechelon IG, ASCII</li>
-            <li>KC46 | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
-            <li>HEMT | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
-            <li>MBRAT | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
-            <li>CAT | Physical Maintenance Trainer, firmware on embedded systems</li>
-            <li>JLTV | Physical Maintenance Trainer, firmware on embedded systems</li>
-            <li>AGWT | ARVR Rotary Flight and Gunnery Trainer</li>
-        </ul>
-
-        <h3>Skills</h3>
-        <div class="skills">
-            <div class="skills-column">
-                <strong>Programming:</strong>
-                <ul>
-                    <li>Languages: C, C++, C#, Python, TypeScript, Java, JavaScript, Swift, Go, SQL, NoSQL, HTML, CSS, XML, Assembly, QT</li>
-                    <li>Web Technologies: React, Node.js, Native Node.js, Angular, SwiftUI, Express, GraphQL, RESTful APIs</li>
-                    <li>Databases: SQL, MongoDB, MySQL, PostgreSQL</li>
-                    <li>Game Engines & Graphics: Unreal Engine 4/5, Titan, Unity, RPG Maker, OpenGL, DirectX, Shader Programming (GLSL, HLSL), CUDA</li>
-                    <li>Networking & System Integration: TCP/UDP, DIS Protocol, CIGI Protocol, WebSockets, API Development, Custom Protocols</li>
-                    <li>Embedded Systems & Firmware: Arduino, Raspberry Pi</li>
-                    <li>Multithreading: Thread creation, locks, synchronization, and best practices to avoid concurrency issues</li>
-                    <li>Object-Oriented Design: System architecture, design patterns, and component-based design</li>
-                </ul>
-            </div>
-            <div class="skills-column">
-                <strong>DevOps/Cloud:</strong>
-                <ul>
-                    <li>Version Control: Git, SVN, Perforce, Vault, Bitbucket, Alien Brain</li>
-                    <li>CI/CD & Automation: Atlassian Suite (Jira, Confluence, Bitbucket, Jenkins), Azure DevOps (Boards, Pipelines, Repos), GitHub</li>
-                    <li>Containerization & Orchestration: Docker, Kubernetes, Prometheus</li>
-                    <li>Virtualization & Cloud Platforms: VirtualBox, AWS, Azure</li>
-                </ul>
-                <strong>Software Dev Tools:</strong>
-                <ul>
-                    <li>IDEs: Visual Studio, VS Code, Eclipse</li>
-                    <li>Debugging Tools: CPU-Z, GPU-Z, VS Profiler, VS Debugger, VS Remote Debugger, DirectX PIX, Perf HUD, Visual Assist, FX Composer 2.5</li>
-                    <li>Project Management: Agile (Scrum, Kanban, Waterfall)</li>
-                </ul>
-                <strong>Mathematics:</strong>
-                <ul>
-                    <li>Linear Algebra, Geometry, Calculus, Trigonometry, Physics</li>
-                </ul>
-                <strong>3D Modeling/Multimedia:</strong>
-                <ul>
-                    <li>3D Software: Maya, Blender, ZBrush</li>
-                    <li>Audio & Video Software: Wwise, FMOD, After Effects, Audition, Audacity, FL Studio</li>
-                    <li>Other Software: Photoshop, GIMP, Crazy Bump, Word, Excel, PowerPoint, OneNote, Visio, Notepad++</li>
-                </ul>
-                <strong>Specialties & Interests:</strong>
-                <ul>
-                    <li>Real-time Rendering, Particles, Lighting, VR, GUI Development, General Programming, Tools Development</li>
-                    <li>Strong C++ skills including knowledge of templates, STL, and experience with Boost</li>
-                    <li>Experience in PC Game Programming, Console Gaming, OpenGL and DirectX-based engines, and real-time simulation</li>
-                    <li>Experience in fast-paced development cycles and team-oriented programming environments</li>
-                </ul>
-            </div>
+    <div class="container">
+        <div class="left">
+            <video autoplay muted loop playsinline id="bg-video-left" poster="indexBG-poster.jpg">
+                <source src="indexBG.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
-
-        <h3>References</h3>
-        <ul>
-            <li>Anastacia Jackson - Hilton Grand Vacations, Fulfillment Coordinator/Data Entry (Analyst)<br>Phone: (407) 723-xxxx</li>
-            <li>Rick Gaylor - Senior Database Analyst<br>Phone: (206) 437-xxxx</li>
-            <li>Alex Perry - AVT Simulation, Graphic Designer<br>Phone: (337) 274-xxxx</li>
-            <li>Paul Evenson - Kratos Defense, Senior Software Engineer<br>Phone: (407) 227-xxxx</li>
-            <li>Bruce Bridgewater - Kratos Defense, Program Manager<br>Phone: (407) 619-xxxx</li>
-            <li>Keith Walls - Lockheed Martin, Staff Reliability Engineer (Senior)<br>Phone: (239) 777-xxxx</li>
-            <li>[More References Available upon request.]</li>
-        </ul>
+        <main class="right">
+            <video autoplay muted loop playsinline id="bg-video-right" poster="MarsBG-poster.jpg">
+                <source src="MarsBG.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h1>FutureTech Consulting</h1>
+            <h2>David Stewart</h2>
+            <ul class="contact">
+                <li>Location: Orlando, FL</li>
+                <li>Email: <a href="mailto:Dstewart3919@gmail.com" rel="noopener">Dstewart3919@gmail.com</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com/in/mr-stewart-71963951/" target="_blank" rel="noopener">LinkedIn Profile</a></li>
+                <li>GitHub: <a href="https://github.com/dstewart3919" target="_blank" rel="noopener">dstewart3919</a></li>
+                <li>YouTube Final Project: <a href="https://youtu.be/I14bZ0YlBnE" target="_blank" rel="noopener">Watch Here</a></li>
+            </ul>
+            <h3>Objective</h3>
+            <p>
+                I am a highly articulate individual with extensive experience in programming and software development. As a self-starter, I excel both in independent work and collaborative environments. My ability to lead and engage with clients, ensuring their needs are met, stems from years of hands-on experience and a strong commitment to meeting project deadlines. I take initiative, continuously seek opportunities for growth, and thrive on learning from others. I am eager to work towards a shared goal with your team, contributing to its success and furthering our collective objectives.
+            </p>
+            <h3>Education</h3>
+            <ul>
+                <li>BS Computer Science | Full Sail University, Winter Park, FL (2010 – 2013)</li>
+                <li>AS Computer Science | MCC-Penn Valley College, Kansas City, Missouri (2008 – 2010)</li>
+            </ul>
+            <h3>Experience</h3>
+            <p><strong>Senior Software Engineer | Freelance</strong><br>Current Projects: Alignerr, Outlier, Deepseek, Upwork<br>I am currently training AI models on best coding practices by improving prompt responses using several languages c++, Javascript, python, react etc. How do you think these AI models are so good experts build datasets? Side projects for several NDA clients through Upwork. Working for myself atm and I have enough bandwidth to add on a full-time position with a team that needs a top of the line engineer. I can then shift my work to the weekends and late hours &/or cut some.</p>
+            <p><strong>Senior Software Engineer | Lockheed Martin, Orlando, FL (MAR 2022 – 2025)</strong><br>Led backend development for mission-critical F-35 training tools, optimizing instructor workflows and enhancing system efficiency. Spearheaded process improvements that streamlined development cycles and increased software reliability. Mentored junior engineers, providing guidance on best practices and modern development techniques to strengthen the team’s technical capabilities.</p>
+            <p><strong>Senior Software Engineer | Kratos Defense & Security Solutions, Orlando, FL (NOV 2017 – JAN 2022)</strong><br>Designed and implemented training solutions for multiple branches of the military, tying together physical trainers using a combination of C++, C#, Unreal Engine, Unity, and web development technologies such as Rust, HTML, JSON, and TypeScript. Collaborated on systems where multiple machines interfaced via networking solutions similar to multiplayer video games, utilizing APIs, shared memory, and networking protocols to achieve High-Speed Interconnect (HSI). Developed and integrated solutions for systems that included dome projectors, each requiring multiple machines to render individual Out-The-Window (OTW) channels. Leveraged both third-party and in-house software/hardware tools to deliver reliable and innovative training platforms. Ensured seamless communication and functionality across devices and systems through meticulous debugging and system integration.</p>
+            <p><strong>Software Engineer | Diamond Visionics (OCT 2013 – OCT 2017)</strong><br>Collaborated with a dynamic team to design and implement innovative features and tools for an Out-The-Window (OTW) solution for flight simulators. Responsibilities included identifying and resolving bugs through rigorous quality assurance processes and unit testing. Leveraged expertise in C++ and OpenGL to develop and enhance an in-house database design tool. Additionally, crafted numerous shaders from scratch and optimized existing ones to achieve superior visual fidelity and performance. Worked closely with senior engineers to ensure alignment with project requirements and deliverables, consistently meeting or exceeding expectations.</p>
+            <h3>Major Programs</h3>
+            <ul>
+                <li>MCAT | Reconfigurable 3 aircraft, 30 Projectors/Channels, Aechelon IG, ASCII</li>
+                <li>KC46 | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
+                <li>HEMT | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
+                <li>MBRAT | Maintenance Trainer, IETM, LRUs, Unity, LMS, Instructor Operator Sys</li>
+                <li>CAT | Physical Maintenance Trainer, firmware on embedded systems</li>
+                <li>JLTV | Physical Maintenance Trainer, firmware on embedded systems</li>
+                <li>AGWT | ARVR Rotary Flight and Gunnery Trainer</li>
+                <li>F35 | IOS PTR Flight Simulation</li>
+                <li>AI Training | Training the future</li>
+            </ul>
+            <h3>Skills</h3>
+            <div class="skills">
+                <div class="skills-column">
+                    <strong>Programming:</strong>
+                    <ul>
+                        <li>Languages: C, C++, C#, Python, TypeScript, Java, JavaScript, Swift, Go, SQL, NoSQL, HTML, CSS, XML, Assembly, QT</li>
+                        <li>Web Technologies: React, Node.js, Native Node.js, Angular, SwiftUI, Express, GraphQL, RESTful APIs</li>
+                        <li>Databases: SQL, MongoDB, MySQL, PostgreSQL</li>
+                        <li>Game Engines & Graphics: Unreal Engine 4/5, Titan, Unity, RPG Maker, OpenGL, DirectX, Shader Programming (GLSL, HLSL), CUDA</li>
+                        <li>Networking & System Integration: TCP/UDP, DIS Protocol, CIGI Protocol, WebSockets, API Development, Custom Protocols</li>
+                        <li>Embedded Systems & Firmware: Arduino, Raspberry Pi</li>
+                        <li>Multithreading: Thread creation, locks, synchronization, and best practices to avoid concurrency issues</li>
+                        <li>Object-Oriented Design: System architecture, design patterns, and component-based design</li>
+                    </ul>
+                </div>
+                <div class="skills-column">
+                    <strong>DevOps/Cloud:</strong>
+                    <ul>
+                        <li>Version Control: Git, SVN, Perforce, Vault, Bitbucket, Alien Brain</li>
+                        <li>CI/CD & Automation: Atlassian Suite (Jira, Confluence, Bitbucket, Jenkins), Azure DevOps (Boards, Pipelines, Repos), GitHub</li>
+                        <li>Containerization & Orchestration: Docker, Kubernetes, Prometheus</li>
+                        <li>Virtualization & Cloud Platforms: VirtualBox, AWS, Azure</li>
+                    </ul>
+                    <strong>Software Dev Tools:</strong>
+                    <ul>
+                        <li>IDEs: Visual Studio, VS Code, Eclipse</li>
+                        <li>Debugging Tools: CPU-Z, GPU-Z, VS Profiler, VS Debugger, VS Remote Debugger, DirectX PIX, Perf HUD, Visual Assist, FX Composer 2.5</li>
+                        <li>Project Management: Agile (Scrum, Kanban, Waterfall)</li>
+                    </ul>
+                    <strong>Mathematics:</strong>
+                    <ul>
+                        <li>Linear Algebra, Geometry, Calculus, Trigonometry, Physics</li>
+                    </ul>
+                    <strong>3D Modeling/Multimedia:</strong>
+                    <ul>
+                        <li>3D Software: Maya, Blender, ZBrush</li>
+                        <li>Audio & Video Software: Wwise, FMOD, After Effects, Audition, Audacity, FL Studio</li>
+                        <li>Other Software: Photoshop, GIMP, Crazy Bump, Word, Excel, PowerPoint, OneNote, Visio, Notepad++</li>
+                    </ul>
+                    <strong>Specialties & Interests:</strong>
+                    <ul>
+                        <li>Real-time Rendering, Particles, Lighting, VR, GUI Development, General Programming, Tools Development</li>
+                        <li>Strong C++ skills including knowledge of templates, STL, and experience with Boost</li>
+                        <li>Experience in PC Game Programming, Console Gaming, OpenGL and DirectX-based engines, and real-time simulation</li>
+                        <li>Experience in fast-paced development cycles and team-oriented programming environments</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>References</h3>
+            <ul>
+                <li>Anastacia Jackson - Data Entry Analyst<br>Phone: (407) xxx-xxxx</li>
+                <li>Rick Gaylor - Senior Database Analyst<br>Phone: (206) xxx-xxxx</li>
+                <li>Alex Perry - AVT Simulation, Graphic Designer<br>Phone: (337) xxx-xxxx</li>
+                <li>Paul Evenson - Kratos Defense, Senior Software Engineer<br>Phone: (407) xxx-xxxx</li>
+                <li>Bruce Bridgewater - Kratos Defense, Program Manager<br>Phone: (407) xxx-xxxx</li>
+                <li>Keith Walls - Lockheed Martin, Staff Reliability Engineer (Senior)<br>Phone: (239) xxx-xxxx</li>
+                <li>[More References Available upon request.]</li>
+            </ul>
+        </main>
     </div>
+
+    <script>
+        // Ensure videos play on iOS by triggering play after user interaction or page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const leftVideo = document.getElementById('bg-video-left');
+            const rightVideo = document.getElementById('bg-video-right');
+
+            // Attempt to play videos on load
+            const playVideos = () => {
+                leftVideo.play().catch(error => console.log('Left video playback failed:', error));
+                rightVideo.play().catch(error => console.log('Right video playback failed:', error));
+            };
+
+            // Play videos on page load
+            playVideos();
+
+            // Play videos on user interaction for iOS
+            document.addEventListener('touchstart', playVideos, { once: true });
+            document.addEventListener('click', playVideos, { once: true });
+        });
+    </script>
 </body>
 </html>
