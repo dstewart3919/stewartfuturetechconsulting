@@ -61,7 +61,7 @@
             z-index: 2;
         }
 
-        .right video {
+        #bg-video-right {
             position: fixed;
             top: 0;
             left: 25%;
@@ -97,6 +97,7 @@
         h2 {
             font-size: 3em;
             margin-bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
             color: #4a90e2;
             -webkit-text-stroke: 0.5px #000000;
             text-stroke: 0.5px #000000;
@@ -144,7 +145,7 @@
 
         .contact li {
             margin: 10px 0;
-            font-size: 1em; /* Reverted to match mobile optimizations */
+            font-size: 2.1em;
             -webkit-text-stroke: 0.2px #000000;
             text-stroke: 0.2px #000000;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -185,43 +186,80 @@
             text-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
         }
 
-        /* Mobile Styles */
+        /* Icon-sized video styles */
+        .icon-video {
+            width: 100px; /* Icon size */
+            height: 100px;
+            border-radius: 80%; /* Circular shape */
+            position: relative; /* Fix the video position */
+            margin-left: 50%;
+            object-fit: cover; /* Ensure the video fills the shape */
+            border: 2px solid #4a90e2; /* Aesthetic border */
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); /* Match h1/h2 glow */
+            z-index: 3; /* Above the fixed MarsBG video */
+            display: none; /* Hidden by default */
+        }
+
+        /* Desktop styles */
+        @media (min-width: 769px) {
+            .left video {
+                display: block; /* Show left video */
+            }
+            .icon-video {
+                display: none; /* Hide icon video */
+            }
+            .right {
+                width: 75%;
+                margin-left: 25%;
+            }
+            #bg-video-right {
+                left: 25%;
+                width: 75%;
+            }
+            .right::before {
+                left: 25%;
+                width: 75%;
+            }
+        }
+
+        /* Mobile and narrow desktop styles */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
-                height: auto; /* Allow content to expand vertically */
-                overflow-x: hidden; /* Prevent horizontal scroll */
+                overflow-x: auto;
+                scroll-snap-type: none;
+                height: auto;
             }
 
             .left {
                 width: 100%;
-                height: 50vh; /* Fixed height for video */
-                position: static; /* Flow naturally in document */
-                margin-top: 20px; /* Space above video */
-                order: 2; /* Place after .right */
+                height: 50vh;
+                position: relative;
+                order: 2;
+                scroll-snap-align: none;
             }
 
             .left video {
-                display: block; /* Ensure video is visible */
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+                display: none; /* Hide left video on mobile/narrow */
+            }
+
+            .icon-video {
+                display: block; /* Show icon video on mobile/narrow */
             }
 
             .right {
                 width: 100%;
                 margin-left: 0;
-                min-height: auto; /* Size to content */
+                min-height: auto;
                 padding: 20px;
-                order: 1; /* Place before .left */
-                position: relative; /* Ensure content stacks above video */
+                order: 1;
+                scroll-snap-align: none;
             }
 
-            .right video {
+            #bg-video-right {
                 left: 0;
                 width: 100%;
-                height: 100vh; /* Full-screen background */
-                z-index: -2;
+                height: 100vh;
             }
 
             .right::before {
@@ -230,13 +268,17 @@
                 height: 100vh;
             }
 
-            /* Adjusted font sizes for mobile readability */
             h1 {
                 font-size: 2.5em;
+                overflow: hidden;
+                text-align: center;
             }
 
             h2 {
                 font-size: 2em;
+                overflow: hidden;
+                padding-left: 75px; /* Space for icon alignment */
+                text-align: left;
             }
 
             h3 {
@@ -256,7 +298,6 @@
 <body>
     <div class="container">
         <div class="left">
-            <h3 class="mobile-only">About Me</h3> <!-- Added label for mobile -->
             <video autoplay muted loop playsinline id="bg-video-left" poster="indexBG-poster.jpg">
                 <source src="indexBG.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -269,6 +310,10 @@
             </video>
             <h1>FutureTech Consulting</h1>
             <h2>David Stewart</h2>
+            <video autoplay muted loop playsinline id="icon-video" class="icon-video" poster="indexBG-poster.jpg">
+                <source src="indexBG.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             <ul class="contact">
                 <li>Location: Orlando, FL</li>
                 <li>Email: <a href="mailto:Dstewart3919@gmail.com" rel="noopener">Dstewart3919@gmail.com</a></li>
@@ -368,19 +413,30 @@
         document.addEventListener('DOMContentLoaded', () => {
             const leftVideo = document.getElementById('bg-video-left');
             const rightVideo = document.getElementById('bg-video-right');
+            const iconVideo = document.getElementById('icon-video');
+            const h2 = document.querySelector('h2');
 
-            // Attempt to play videos on load
             const playVideos = () => {
                 leftVideo.play().catch(error => console.log('Left video playback failed:', error));
                 rightVideo.play().catch(error => console.log('Right video playback failed:', error));
+                iconVideo.play().catch(error => console.log('Icon video playback failed:', error));
             };
 
-            // Play videos on page load
             playVideos();
 
-            // Play videos on user interaction for iOS
             document.addEventListener('touchstart', playVideos, { once: true });
             document.addEventListener('click', playVideos, { once: true });
+
+            // Adjust icon position based on h2 scroll only on mobile
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && h2 && iconVideo.style.display !== 'none') {
+                    const h2Rect = h2.getBoundingClientRect();
+                    if (h2Rect.top < window.innerHeight && h2Rect.bottom > 0) { // Only adjust if h2 is in view
+                        iconVideo.style.top = (h2Rect.top + window.scrollY + 10) + 'px'; // Offset from h2 top
+                        iconVideo.style.left = (h2Rect.left + 10) + 'px'; // Offset from h2 left
+                    }
+                }
+            });
         });
     </script>
 </body>
