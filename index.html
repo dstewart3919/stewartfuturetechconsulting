@@ -55,7 +55,7 @@
             overflow-y: auto;
             background: transparent;
             padding: 40px;
-            box-sizing: border-box;
+            box-sizing: border-box; 
             min-height: 100vh;
             position: relative;
             z-index: 2;
@@ -84,7 +84,7 @@
         }
 
         h1 {
-            font-size: 4em;
+            font-size: 5em;
             margin-bottom: 10px;
             font-family: 'Orbitron', sans-serif;
             color: #4a90e2;
@@ -190,14 +190,17 @@
         .icon-video {
             width: 100px; /* Icon size */
             height: 100px;
-            border-radius: 80%; /* Circular shape */
+            border-radius: 70%; /* Circular shape */
             position: relative; /* Fix the video position */
-            margin-left: 50%;
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for true center */
             object-fit: cover; /* Ensure the video fills the shape */
             border: 2px solid #4a90e2; /* Aesthetic border */
             box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); /* Match h1/h2 glow */
             z-index: 3; /* Above the fixed MarsBG video */
-            display: none; /* Hidden by default */
+            margin: 20px 0;
+            display: block; /* Hidden by default */
+            overflow: hidden; /* Clip any overflow to enforce the circle */
         }
 
         /* Desktop styles */
@@ -277,8 +280,7 @@
             h2 {
                 font-size: 2em;
                 overflow: hidden;
-                padding-left: 75px; /* Space for icon alignment */
-                text-align: left;
+                text-align: center;
             }
 
             h3 {
@@ -426,17 +428,6 @@
 
             document.addEventListener('touchstart', playVideos, { once: true });
             document.addEventListener('click', playVideos, { once: true });
-
-            // Adjust icon position based on h2 scroll only on mobile
-            window.addEventListener('scroll', () => {
-                if (window.innerWidth <= 768 && h2 && iconVideo.style.display !== 'none') {
-                    const h2Rect = h2.getBoundingClientRect();
-                    if (h2Rect.top < window.innerHeight && h2Rect.bottom > 0) { // Only adjust if h2 is in view
-                        iconVideo.style.top = (h2Rect.top + window.scrollY + 10) + 'px'; // Offset from h2 top
-                        iconVideo.style.left = (h2Rect.left + 10) + 'px'; // Offset from h2 left
-                    }
-                }
-            });
         });
     </script>
 </body>
